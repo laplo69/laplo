@@ -12,14 +12,17 @@ function App() {
         width: "100%",
       }}
     >
-      {t.map((image) => (
-        <img
-          key={image.id}
-          src={image.src}
-          alt="image.id"
-          style={{ width: "100%", maxWidth: 500 }}
-        />
-      ))}
+      {t.map(
+        (image) =>
+          image.src !== "" && (
+            <img
+              key={image.id}
+              src={image.src}
+              alt="image.id"
+              style={{ width: "100%", maxWidth: 500 }}
+            />
+          )
+      )}
     </div>
   );
 }
