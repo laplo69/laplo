@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "./App.css";
 import t from "./t.json";
 
