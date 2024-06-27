@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import data from "./data.json";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div
+      className="App"
+      style={{
+        display: "grid",
+        justifyItems: "center",
+        gap: 10,
+        width: "100%",
+      }}
+    >
+      {data.map((image) => (
+        <img
+          key={image.id}
+          src={image.src}
+          alt="image.id"
+          style={{ width: "100%", maxWidth: 500 }}
+        />
+      ))}
     </div>
   );
 }
