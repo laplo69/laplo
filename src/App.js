@@ -1,8 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import t from "./t.json";
+import { BiSolidArrowToTop } from "react-icons/bi";
 
 function App() {
+  const [isVisible, setIsVisible] = useState(false);
   useEffect(() => {
     // Vô hiệu hóa chuột phải và tổ hợp phím xem mã nguồn
     document.addEventListener("contextmenu", (event) => event.preventDefault());
@@ -26,6 +28,26 @@ function App() {
     };
   }, []);
 
+  // Handle scroll event
+  const handleScroll = () => {
+    if (window.scrollY > 100) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  };
+
+  // Scroll to top function
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  // Add scroll event listener
+  window.addEventListener("scroll", handleScroll);
+
   return (
     <div
       className="App"
@@ -46,6 +68,11 @@ function App() {
               style={{ width: "100%", maxWidth: 500 }}
             />
           )
+      )}
+      {isVisible && (
+        <button className="scroll-to-top" onClick={scrollToTop}>
+          <BiSolidArrowToTop size={30} />
+        </button>
       )}
     </div>
   );
