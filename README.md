@@ -1,3 +1,13 @@
+# Push source to github
+
+git add .
+git commit -m "edit file"
+git push -u origin main
+
+# Deploy new web
+
+npm run deploy
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
