@@ -1,6 +1,5 @@
-import logo from "./logo.svg";
 import "./App.css";
-import data from "./data.json";
+import t from "./t.json";
 
 function App() {
   return (
@@ -13,7 +12,7 @@ function App() {
         width: "100%",
       }}
     >
-      {data.map((image) => (
+      {t.map((image) => (
         <img
           key={image.id}
           src={image.src}
