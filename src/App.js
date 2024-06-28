@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import t from "./t.json";
 import icon from "./icon.png";
+import Menu from "./Components/menu";
 
 function App() {
   const [isVisible, setIsVisible] = useState(false);
@@ -53,6 +54,29 @@ function App() {
   // Add scroll event listener
   window.addEventListener("scroll", handleScroll);
 
+  const handleRandom = () => {
+    const shuffled = [...t].sort(() => Math.random() - 0.5);
+    setRandomizedData(shuffled);
+    scrollToTop();
+  };
+
+  const handleNewest = () => {
+    const sortedImages = [...t].sort((a, b) => b.id - a.id);
+    setRandomizedData(sortedImages);
+    scrollToTop();
+  };
+
+  const handleOldest = () => {
+    const sortedImages = [...t].sort((a, b) => a.id - b.id);
+    setRandomizedData(sortedImages);
+    scrollToTop();
+  };
+
+  const handleFavorite = () => {
+    // const sortedByFavorite = [...data].sort((a, b) => b.likes - a.likes);
+    // setData(sortedByFavorite);
+  };
+
   return (
     <div
       className="App"
@@ -63,6 +87,12 @@ function App() {
         width: "100%",
       }}
     >
+      <Menu
+        onRandom={handleRandom}
+        onNewest={handleNewest}
+        onOldest={handleOldest}
+        onFavorite={handleFavorite}
+      />
       {randomizedData.map(
         (image) =>
           image.src !== "" && (
