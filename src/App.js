@@ -72,7 +72,7 @@ function App() {
       {isVisible && (
         <button className="scroll-to-top" onClick={scrollToTop}>
           {/* <BiSolidArrowToTop size={30} /> */}
-          <img src={icon} style={{ width: 35, height: 35 }}></img>
+          <img src={icon} style={{ width: 40, height: 40 }}></img>
         </button>
       )}
     </div>
