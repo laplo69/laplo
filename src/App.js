@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import t from "./t.json";
-import { BiSolidArrowToTop } from "react-icons/bi";
+import icon from "./icon.png";
 
 function App() {
   const [isVisible, setIsVisible] = useState(false);
@@ -71,7 +71,8 @@ function App() {
       )}
       {isVisible && (
         <button className="scroll-to-top" onClick={scrollToTop}>
-          <BiSolidArrowToTop size={30} />
+          {/* <BiSolidArrowToTop size={30} /> */}
+          <img src={icon} style={{ width: 35, height: 35 }}></img>
         </button>
       )}
     </div>
