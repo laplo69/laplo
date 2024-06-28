@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/laplo/static/css/main.cc55a5b3.css",
-    "main.js": "/laplo/static/js/main.953e0b09.js",
+    "main.js": "/laplo/static/js/main.0623c305.js",
     "static/js/453.e846c01e.chunk.js": "/laplo/static/js/453.e846c01e.chunk.js",
     "index.html": "/laplo/index.html",
     "main.cc55a5b3.css.map": "/laplo/static/css/main.cc55a5b3.css.map",
-    "main.953e0b09.js.map": "/laplo/static/js/main.953e0b09.js.map",
+    "main.0623c305.js.map": "/laplo/static/js/main.0623c305.js.map",
     "453.e846c01e.chunk.js.map": "/laplo/static/js/453.e846c01e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.cc55a5b3.css",
-    "static/js/main.953e0b09.js"
+    "static/js/main.0623c305.js"
   ]
 }
