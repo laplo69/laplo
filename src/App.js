@@ -5,7 +5,12 @@ import icon from "./icon.png";
 
 function App() {
   const [isVisible, setIsVisible] = useState(false);
+  const [randomizedData, setRandomizedData] = useState([]);
+
   useEffect(() => {
+    const shuffled = [...t].sort(() => Math.random() - 0.5);
+    setRandomizedData(shuffled);
+
     // Vô hiệu hóa chuột phải và tổ hợp phím xem mã nguồn
     document.addEventListener("contextmenu", (event) => event.preventDefault());
     document.onkeydown = function (e) {
@@ -58,7 +63,7 @@ function App() {
         width: "100%",
       }}
     >
-      {t.map(
+      {randomizedData.map(
         (image) =>
           image.src !== "" && (
             <img
