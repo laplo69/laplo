@@ -1,29 +1,42 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import t from "./t.json";
 import icon from "./icon.png";
 import Menu from "./Components/menu";
 
 function App() {
   const [isVisible, setIsVisible] = useState(false);
+  const [images, setImages] = useState([]);
   const [randomizedData, setRandomizedData] = useState([]);
 
   useEffect(() => {
-    const shuffled = [...t].sort(() => Math.random() - 0.5);
+    const images = {};
+    function importAll(r) {
+      r.keys().forEach((key) => (images[key] = r(key)));
+    }
+
+    importAll(require.context("./images", false, /\.(png|jpe?g|svg)$/));
+
+    const imageArray = Object.keys(images).map((key) => ({
+      id: parseInt(key.replace("./", "").replace(".jpg", "")),
+      src: images[key].default || images[key],
+    }));
+    console.log(imageArray);
+    setImages(imageArray);
+    const shuffled = [...imageArray].sort(() => Math.random() - 0.5);
     setRandomizedData(shuffled);
 
-    // // Vô hiệu hóa chuột phải và tổ hợp phím xem mã nguồn
-    // document.addEventListener("contextmenu", (event) => event.preventDefault());
-    // document.onkeydown = function (e) {
-    //   if (
-    //     e.keyCode === 123 || // F12
-    //     (e.ctrlKey && e.shiftKey && e.keyCode === "I".charCodeAt(0)) || // Ctrl+Shift+I
-    //     (e.ctrlKey && e.shiftKey && e.keyCode === "J".charCodeAt(0)) || // Ctrl+Shift+J
-    //     (e.ctrlKey && e.keyCode === "U".charCodeAt(0)) // Ctrl+U
-    //   ) {
-    //     return false;
-    //   }
-    // };
+    // Vô hiệu hóa chuột phải và tổ hợp phím xem mã nguồn
+    document.addEventListener("contextmenu", (event) => event.preventDefault());
+    document.onkeydown = function (e) {
+      if (
+        e.keyCode === 123 || // F12
+        (e.ctrlKey && e.shiftKey && e.keyCode === "I".charCodeAt(0)) || // Ctrl+Shift+I
+        (e.ctrlKey && e.shiftKey && e.keyCode === "J".charCodeAt(0)) || // Ctrl+Shift+J
+        (e.ctrlKey && e.keyCode === "U".charCodeAt(0)) // Ctrl+U
+      ) {
+        return false;
+      }
+    };
 
     return () => {
       // Dọn dẹp khi component bị unmount
@@ -55,19 +68,19 @@ function App() {
   window.addEventListener("scroll", handleScroll);
 
   const handleRandom = () => {
-    const shuffled = [...t].sort(() => Math.random() - 0.5);
+    const shuffled = [...images].sort(() => Math.random() - 0.5);
     setRandomizedData(shuffled);
     scrollToTop();
   };
 
   const handleNewest = () => {
-    const sortedImages = [...t].sort((a, b) => b.id - a.id);
+    const sortedImages = [...images].sort((a, b) => b.id - a.id);
     setRandomizedData(sortedImages);
     scrollToTop();
   };
 
   const handleOldest = () => {
-    const sortedImages = [...t].sort((a, b) => a.id - b.id);
+    const sortedImages = [...images].sort((a, b) => a.id - b.id);
     setRandomizedData(sortedImages);
     scrollToTop();
   };
