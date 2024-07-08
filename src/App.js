@@ -49,7 +49,7 @@ function App() {
     ];
 
     const imageArray = imageFiles.map((fileName) => ({
-      id: parseInt(imageFile.replace(".jpg", "")),
+      id: parseInt(fileName.replace(".jpg", "")),
       src: `https://laplo69.com/images/${fileName}`,
     }));
 
