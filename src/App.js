@@ -14,6 +14,7 @@ function App() {
   const [isVisible, setIsVisible] = useState(false);
   const [images, setImages] = useState([]);
   const [randomizedData, setRandomizedData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const imageFiles = data;
