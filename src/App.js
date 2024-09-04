@@ -1,4 +1,10 @@
 import { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import "./App.css";
 import icon from "./icon.png";
 import Menu from "./Components/menu";
@@ -10,22 +16,6 @@ function App() {
   const [randomizedData, setRandomizedData] = useState([]);
 
   useEffect(() => {
-    // const images = {};
-    // function importAll(r) {
-    //   r.keys().forEach((key) => (images[key] = r(key)));
-    // }
-
-    // importAll(require.context("./images", false, /\.(png|jpe?g|svg)$/));
-
-    // const imageArray = Object.keys(images).map((key) => ({
-    //   id: parseInt(key.replace("./", "").replace(".jpg", "")),
-    //   src: images[key].default || images[key],
-    // }));
-    // console.log(imageArray);
-    // setImages(imageArray);
-    // const shuffled = [...imageArray].sort(() => Math.random() - 0.5);
-    // setRandomizedData(shuffled);
-
     const imageFiles = data;
 
     const imageArray = imageFiles.map((fileName) => ({
@@ -37,21 +27,19 @@ function App() {
     const shuffled = [...imageArray].sort(() => Math.random() - 0.5);
     setRandomizedData(shuffled);
 
-    // Vô hiệu hóa chuột phải và tổ hợp phím xem mã nguồn
     document.addEventListener("contextmenu", (event) => event.preventDefault());
     document.onkeydown = function (e) {
       if (
-        e.keyCode === 123 || // F12
-        (e.ctrlKey && e.shiftKey && e.keyCode === "I".charCodeAt(0)) || // Ctrl+Shift+I
-        (e.ctrlKey && e.shiftKey && e.keyCode === "J".charCodeAt(0)) || // Ctrl+Shift+J
-        (e.ctrlKey && e.keyCode === "U".charCodeAt(0)) // Ctrl+U
+        e.keyCode === 123 ||
+        (e.ctrlKey && e.shiftKey && e.keyCode === "I".charCodeAt(0)) ||
+        (e.ctrlKey && e.shiftKey && e.keyCode === "J".charCodeAt(0)) ||
+        (e.ctrlKey && e.keyCode === "U".charCodeAt(0))
       ) {
         return false;
       }
     };
 
     return () => {
-      // Dọn dẹp khi component bị unmount
       document.removeEventListener("contextmenu", (event) =>
         event.preventDefault()
       );
@@ -59,7 +47,6 @@ function App() {
     };
   }, []);
 
-  // Handle scroll event
   const handleScroll = () => {
     if (window.scrollY > 100) {
       setIsVisible(true);
@@ -68,16 +55,12 @@ function App() {
     }
   };
 
-  // Scroll to top function
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
   };
-
-  // Add scroll event listener
-  window.addEventListener("scroll", handleScroll);
 
   const handleRandom = () => {
     const shuffled = [...images].sort(() => Math.random() - 0.5);
@@ -89,18 +72,23 @@ function App() {
     const sortedImages = [...images].sort((a, b) => b.id - a.id);
     setRandomizedData(sortedImages);
     scrollToTop();
+    navigate("/newest");
   };
 
   const handleOldest = () => {
     const sortedImages = [...images].sort((a, b) => a.id - b.id);
     setRandomizedData(sortedImages);
     scrollToTop();
+    navigate("/oldest");
   };
 
   const handleFavorite = () => {
     // const sortedByFavorite = [...data].sort((a, b) => b.likes - a.likes);
     // setData(sortedByFavorite);
   };
+
+  // Add scroll event listener
+  window.addEventListener("scroll", handleScroll);
 
   return (
     <div
@@ -148,4 +136,16 @@ function App() {
   );
 }
 
-export default App;
+function AppRouter() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/newest" element={<App />} />
+        <Route path="/oldest" element={<App />} />
+      </Routes>
+    </Router>
+  );
+}
+
+export default AppRouter;
